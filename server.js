@@ -6,10 +6,11 @@ const fs = require('fs');
 const findFreePort = require('find-free-port');
 
 findFreePort(3000, (err, freePort) => {
+
     if (err) throw err;
     const PORT = freePort;
 
-    // Body parsing middleware
+    // Makes JSON request bodies accessible via req.body
     app.use(express.json());
 
     // Serve static files from the docs/ directory
@@ -24,7 +25,11 @@ findFreePort(3000, (err, freePort) => {
     // Route to save data from experiments
     app.post('/save', (req, res) => {
 
-        const filePath = './data/' + req.body.filename;
+        // Output the request body for debugging purposes
+        console.log(req.body);
+
+        // Set path where data will be stored
+        const filePath = './data/' + req.body.fileName;
 
         fs.writeFile(filePath, req.body.data, (err) => {
             if (err) {
