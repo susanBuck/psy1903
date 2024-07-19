@@ -58,6 +58,58 @@ for (let block of conditions) {
     }
 }
 
+
+let resultsTrial = {
+    type: jsPsychHtmlKeyboardResponse,
+    choices: 'NO KEYS',
+    async: false,
+    stimulus: `
+        <h1>Please wait...</h1>
+        <p>We are saving the results of your inputs.</p>
+        `,
+    on_start: function () {
+
+        //  ⭐ Update the following three values as appropriate ⭐
+        let prefix = 'lexical-decision';
+        let dataPipeExperimentId = '2uUB7E9Qv6hx';
+        let forceOSFSave = true;
+
+        // Filter and retrieve results as CSV data
+        let results = jsPsych.data
+            .get()
+            .filter({ collect: true })
+            .ignore(['stimulus', 'trial_type', 'internal_node_id', 'trial_index'])
+            .csv();
+
+        let timestamp = new Date().toISOString().replace(/T/, '-').replace(/\..+/, '').replace(/:/g, '-');
+
+        let isLocalHost = window.location.href.includes('localhost');
+
+        let destination = '/save';
+        if (!isLocalHost || forceOSFSave) {
+            destination = 'https://pipe.jspsych.org/api/data/';
+        }
+
+        fetch(destination, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*',
+            },
+            body: JSON.stringify({
+                experimentID: dataPipeExperimentId,
+                filename: prefix + '-' + timestamp + '.csv',
+                data: results,
+            }),
+        }).then(data => {
+            console.log(data);
+            jsPsych.finishTrial();
+        })
+    }
+}
+timeline.push(resultsTrial);
+
+
 let debriefTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -65,14 +117,6 @@ let debriefTrial = {
     <p>You can close this tab.</p>
     `,
     choices: 'NO_KEYS',
-    on_start: function () {
-        let data = jsPsych.data
-            .get()
-            .filter({ collect: true })
-            .ignore(['stimulus', 'trial_type', 'internal_node_id', 'trial_index'])
-            .csv();
-        console.log(data);
-    }
 };
 
 timeline.push(debriefTrial);

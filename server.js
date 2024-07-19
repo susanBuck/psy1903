@@ -29,7 +29,8 @@ findFreePort(3000, (err, freePort) => {
         console.log(req.body);
 
         // Set path where data will be stored
-        const filePath = './data/' + req.body.fileName;
+        // Note: OSF expects filename (all lowercase, so that’s what we use)
+        const filePath = './data/' + req.body.filename;
 
         fs.writeFile(filePath, req.body.data, (err) => {
             if (err) {

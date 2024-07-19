@@ -63,18 +63,24 @@ for (let block of conditions) {
     }
 }
 
-let saveTrial = {
+let resultsTrial = {
     type: jsPsychHtmlKeyboardResponse,
     choices: ['NO KEYS'],
     async: false,
     stimulus: function () {
         return `
                 <h1>Please wait...</h1>
-                <span class="loader"></span>
+                <span class='loader'></span>
                 <p>We are saving the results of your inputs.</p>
             `;
     },
     on_start: function () {
+
+        // Update the following three values as appropriate
+        let dataPipeExperimentId = 'xKhpxM57Hpvh';
+        let prefix = 'implicit-association';
+        let forceOSFSave = false;
+
         // Filter and retrieve results as CSV data
         let results = jsPsych.data
             .get()
@@ -85,11 +91,10 @@ let saveTrial = {
         let timestamp = new Date().toISOString().replace(/T/, '-').replace(/\..+/, '').replace(/:/g, '-');
 
         let isLocalHost = window.location.href.includes('localhost');
-        isLocalHost = false;
 
-        let destination = 'https://pipe.jspsych.org/api/data/';
-        if (isLocalHost) {
-            destination = '/save';
+        let destination = '/save';
+        if (!isLocalHost || forceOSFSave) {
+            destination = 'https://pipe.jspsych.org/api/data/';
         }
 
         fetch(destination, {
@@ -99,8 +104,9 @@ let saveTrial = {
                 Accept: '*/*',
             },
             body: JSON.stringify({
-                experimentID: 'xKhpxM57Hpvh',
-                filename: 'iat-' + timestamp + '.csv',
+                experimentID: dataPipeExperimentId,
+                // Note: OSF expects filename (all lowercase, so that’s what we use)
+                filename: prefix + '-' + timestamp + '.csv',
                 data: results,
             }),
         }).then(data => {
@@ -109,7 +115,7 @@ let saveTrial = {
         })
     }
 }
-timeline.push(saveTrial);
+timeline.push(resultsTrial);
 
 
 let debriefTrial = {
