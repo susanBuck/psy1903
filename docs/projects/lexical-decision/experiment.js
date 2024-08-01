@@ -23,7 +23,7 @@ for (let block of conditions) {
         stimulus: `
             <h1>${block.title}</h1>
             <p>You are about to see a series of ${block.count} characters.</p>
-            <p> If the characters make up a word, press the <strong>F</strong> key.</p>
+            <p>If the characters make up a word, press the <strong>F</strong> key.</p>
             <p>If the characters do not make up a word, press the <strong>J</strong> key.</p>
             <p>Press <strong>SPACE</strong> to begin.</p>
             `,
@@ -38,11 +38,11 @@ for (let block of conditions) {
     for (let condition of conditions) {
         let conditionTrial = {
             type: jsPsychHtmlKeyboardResponse,
-            stimulus: condition.characters,
+            stimulus: `<p class='condition-characters'>${condition.characters}</p>`,
             data: {
                 collect: true,
             },
-            keys: ['f', 'j'],
+            choices: ['f', 'j'],
             on_finish: function (data) {
                 if (data.response == 'f' && condition.isWord) {
                     data.correct = true;
@@ -65,6 +65,7 @@ let resultsTrial = {
     async: false,
     stimulus: `
         <h1>Please wait...</h1>
+        <span class='loader'></span>
         <p>We are saving the results of your inputs.</p>
         `,
     on_start: function () {

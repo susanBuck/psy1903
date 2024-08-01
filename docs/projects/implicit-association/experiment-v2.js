@@ -18,15 +18,12 @@ timeline.push({
         `,
 });
 
-conditions = jsPsych.randomization.repeat(conditions, 1);
-
 let counter = 1;
 
 // Loop through the condition blocks
 for (let block of conditions) {
 
-    // Randomize the categories
-    let categories = jsPsych.randomization.repeat([block.category1, block.category2], 1);
+    let categories = block.categories;
 
     // Introduce the block
     timeline.push({

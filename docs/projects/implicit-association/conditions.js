@@ -1,7 +1,6 @@
 let conditions = [
     {
-        category1: 'family',
-        category2: 'career',
+        categories: ['family', 'career'],
         trial: [
             {
                 'word': 'home',
@@ -22,24 +21,23 @@ let conditions = [
         ]
     },
     {
-        category1: 'male',
-        category2: 'female',
+        categories: ['men', 'women'],
         trial: [
             {
                 'word': 'Ben',
-                'category': 'male',
+                'category': 'men',
             },
             {
                 'word': 'Paul',
-                'category': 'male',
+                'category': 'men',
             },
             {
                 'word': 'Emily',
-                'category': 'female',
+                'category': 'women',
             },
             {
                 'word': 'Julia',
-                'category': 'female',
+                'category': 'women',
             }
         ]
     }
