@@ -1,4 +1,4 @@
-# psy1903
+# psy1903 - Programming for Psychologists
 
 ## Susan Buck
 
