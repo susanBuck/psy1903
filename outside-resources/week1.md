@@ -7,8 +7,8 @@
 + What are some examples of string methods JavaScript provides?
 + In JavaScript what is the difference between `let` and `var`
 + How can I open my web inspector in Firefox?
-+ What does the JavaScript alert method do?
-+ What does the JavaScript console.log method do?
++ What does the JavaScript `alert` method do?
++ What does the JavaScript `console.log` method do?
 + Are there other methods aside from `log` that is available with JavaScript's `console` method?
 + What does the JavaScript prompt method do?
 
