@@ -10,24 +10,24 @@ let conditions = [
             { characters: 'mub', isWord: false },
         ],
     },
-    {
-        title: 'Part 2',
-        count: 4,
-        conditions: [
-            { characters: 'food', isWord: true },
-            { characters: 'burn', isWord: true },
-            { characters: 'mnut', isWord: false },
-            { characters: 'plut', isWord: false },
-        ]
-    },
-    {
-        title: 'Part 3',
-        count: 5,
-        conditions: [
-            { characters: 'apple', isWord: true },
-            { characters: 'jumps', isWord: true },
-            { characters: 'pilde', isWord: false },
-            { characters: 'kandy', isWord: false },
-        ]
-    }
+    // {
+    //     title: 'Part 2',
+    //     count: 4,
+    //     conditions: [
+    //         { characters: 'food', isWord: true },
+    //         // { characters: 'burn', isWord: true },
+    //         // { characters: 'mnut', isWord: false },
+    //         // { characters: 'plut', isWord: false },
+    //     ]
+    // },
+    // {
+    //     title: 'Part 3',
+    //     count: 5,
+    //     conditions: [
+    //         { characters: 'apple', isWord: true },
+    //         // { characters: 'jumps', isWord: true },
+    //         // { characters: 'pilde', isWord: false },
+    //         // { characters: 'kandy', isWord: false },
+    //     ]
+    // }
 ];
