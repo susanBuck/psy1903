@@ -1,0 +1,33 @@
+.title {
+    font-family: Georgia;
+    background-color: teal;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.equation {
+    font-size: 36px;
+}
+
+.number {
+    background-color: yellow;
+    padding: 10px;
+}
+
+.key {
+    border: 1px solid black;
+    border-radius: 2px;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.jspsych-display-element input[type=text] {
+    font-size: 36px;
+    text-align: center;
+    width: 100px;
+}
+
+.task3Heading {
+    margin-top: 100px;
+}
