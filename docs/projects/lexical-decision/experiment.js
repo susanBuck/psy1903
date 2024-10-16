@@ -1,20 +1,10 @@
 let jsPsych = initJsPsych();
-
 let timeline = [];
 
-let colors = jsPsych.randomization.repeat(['red', 'green', 'blue'], 1);
-let color = colors.pop();
 
-let trial = {
-    type: jsPsychHtmlKeyboardResponse,
-    choices: ['f', 'j'],
-    stimulus: `
-        <span class='${color}'>ball</span>`
-    ,
-};
-//timeline.push(trial);
-
-// Welcome
+/**
+ * Welcome
+ */
 let welcomeTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -28,7 +18,10 @@ let welcomeTrial = {
 timeline.push(welcomeTrial);
 
 
-// Condition trials
+
+/**
+ * Condition trials
+ */
 for (let block of conditions) {
 
     let blockConditions = jsPsych.randomization.repeat(block.conditions, 1);
@@ -38,9 +31,9 @@ for (let block of conditions) {
         stimulus: `
             <h1>${block.title}</h1>
             <p>You are about to see a series of ${block.count} characters.</p>
-            <p>If the characters make up a word, press the F key.</p>
-            <p>If the characters do not make up a word, press the J key.</p>
-            <p>Press SPACE to begin.</p>
+            <p>If the characters make up a word, press the <span class='key'>F</span> key.</p>
+            <p>If the characters do not make up a word, press the <span class='key'>J</span> key.</p>
+            <p>Press the <span class='key'>SPACE</span> key to begin.</p>
             `,
         choices: [' '],
     };
@@ -70,6 +63,11 @@ for (let block of conditions) {
     }
 }
 
+
+
+/**
+ * Results
+ */
 let resultsTrial = {
     type: jsPsychHtmlKeyboardResponse,
     choices: ['NO KEYS'],
@@ -82,8 +80,8 @@ let resultsTrial = {
     on_start: function () {
         //  ⭐ Update the following three values as appropriate ⭐
         let prefix = 'lexical-decision';
-        let dataPipeExperimentId = 'your-experiment-id-here';
-        let forceOSFSave = false;
+        let dataPipeExperimentId = 'xGrIMXyGYhic';
+        let forceOSFSave = true;
 
         // Filter and retrieve results as CSV data
         let results = jsPsych.data
@@ -119,13 +117,17 @@ let resultsTrial = {
             }),
         }).then(data => {
             console.log(data);
-            //jsPsych.finishTrial();
+            jsPsych.finishTrial();
         })
     }
 }
 timeline.push(resultsTrial);
 
-// Debrief
+
+
+/**
+ * Debrief
+ */
 let debriefTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -135,5 +137,8 @@ let debriefTrial = {
     choices: ['NO KEYS']
 }
 timeline.push(debriefTrial);
+
+
+
 
 jsPsych.run(timeline);

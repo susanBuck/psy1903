@@ -1,9 +1,13 @@
-const express = require('express');
-const app = express();
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import findFreePort from 'find-free-port';
+import { fileURLToPath } from 'url';
+//import { createGiftCard } from './giftcard.js';
 
-const path = require('path');
-const fs = require('fs');
-const findFreePort = require('find-free-port');
+const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 findFreePort(3000, (err, freePort) => {
 
@@ -21,12 +25,14 @@ findFreePort(3000, (err, freePort) => {
         res.sendFile(path.join(__dirname, 'docs', 'index.html'));
     });
 
-    // POST /save
-    // Route to save data from experiments
+    /**
+     * POST /save
+     * Route to save data from experiments
+     */
     app.post('/save', (req, res) => {
 
         // Output the request body for debugging purposes
-        console.log(req.body);
+        // console.log(req.body);
 
         // Set path where data will be stored
         // Note: OSF expects filename (all lowercase, so that’s what we use)
@@ -43,6 +49,25 @@ findFreePort(3000, (err, freePort) => {
         });
     });
 
+
+    // /**
+    //  * POST /gift-card
+    //  */
+    // app.post('/gift-card', async (req, res) => {
+    //     try {
+    //         const response = await createGiftCard();
+    //         res.json(response);
+    //     } catch (error) {
+    //         console.error('Error creating gift card:', error);
+    //         res.status(500).send('Error creating gift card');
+    //     }
+    // });
+
+
+
+    /**
+     * Running
+     */
     app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     });
