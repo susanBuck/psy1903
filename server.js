@@ -3,7 +3,6 @@ import path from 'path';
 import fs from 'fs';
 import findFreePort from 'find-free-port';
 import { fileURLToPath } from 'url';
-//import { createGiftCard } from './giftcard.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -48,22 +47,6 @@ findFreePort(3000, (err, freePort) => {
             }
         });
     });
-
-
-    // /**
-    //  * POST /gift-card
-    //  */
-    // app.post('/gift-card', async (req, res) => {
-    //     try {
-    //         const response = await createGiftCard();
-    //         res.json(response);
-    //     } catch (error) {
-    //         console.error('Error creating gift card:', error);
-    //         res.status(500).send('Error creating gift card');
-    //     }
-    // });
-
-
 
     /**
      * Running
