@@ -81,7 +81,7 @@ let resultsTrial = {
         //  ⭐ Update the following three values as appropriate ⭐
         let prefix = 'lexical-decision';
         let dataPipeExperimentId = 'xGrIMXyGYhic';
-        let forceOSFSave = true;
+        let forceOSFSave = false;
 
         // Filter and retrieve results as CSV data
         let results = jsPsych.data
@@ -132,7 +132,6 @@ let debriefTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
     <h1>Thank you!</h1>
-    <p>You can now close this tab</p>
     `,
     choices: ['NO KEYS']
 }
