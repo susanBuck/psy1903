@@ -11,10 +11,10 @@ let blocksB = [
 
 // There should be 10 words per category
 let words = {
-    family: ['home', 'wedding', 'children', 'relative', 'parent', 'cousin', 'sibling', 'spouse', 'house', 'baby'],
-    career: ['corporation', 'salary', 'interview', 'promotion', 'resume', 'office', 'income', 'hiring', 'bosses', 'corporate'],
-    men: ['Calvin', 'Ben', 'Jamal', 'Charles', 'Mateo', 'Henry', 'Lucas', 'Andrew', 'Darnell', 'George'],
-    women: ['Mariah', 'Emily', 'Julia', 'Brenda', 'Tasha', 'Priya', 'Kelsey', 'Jasmine', 'Grace', 'Camila'],
+    'family': ['home', 'wedding', 'children', 'relative', 'parent', 'cousin', 'sibling', 'spouse', 'house', 'baby'],
+    'career': ['corporation', 'salary', 'interview', 'promotion', 'resume', 'office', 'income', 'hiring', 'bosses', 'corporate'],
+    'men': ['Calvin', 'Ben', 'Jamal', 'Charles', 'Mateo', 'Henry', 'Lucas', 'Andrew', 'Darnell', 'George'],
+    'women': ['Mariah', 'Emily', 'Julia', 'Brenda', 'Tasha', 'Priya', 'Kelsey', 'Jasmine', 'Grace', 'Camila'],
 };
 
 
