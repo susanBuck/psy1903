@@ -2,7 +2,7 @@
     "name": "psy1903",
     "type": "module",
     "scripts": {
-        "start": "nodemon server.js"
+        "start": "nodemon --watch server.js --verbose server.js"
     },
     "dependencies": {
         "amazon-incentives-api": "^0.2.0",

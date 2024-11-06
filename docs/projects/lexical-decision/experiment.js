@@ -4,6 +4,9 @@ let jsPsych = initJsPsych({
 
 let timeline = [];
 
+// Generate a participant ID based on the current timestamp
+let participantId = getCurrentTimestamp();
+
 let queryString = new URLSearchParams(window.location.search);
 let qualtricsId = queryString.get('qualtricsId');
 console.log(qualtricsId);
@@ -16,7 +19,6 @@ let ageCheckTrial = {
     <h1>Welcome!</h1> 
     Please enter your age to continue: <input type='text' name='age' id='age'>
     `,
-    autofocus: 'age',
     on_finish: function (data) {
         if (data.response.age < 18) {
             jsPsych.abortExperiment('You must be 18 years or older to complete this experiment.');
@@ -25,12 +27,6 @@ let ageCheckTrial = {
 }
 timeline.push(ageCheckTrial);
 
-let enterFullScreenTrial = {
-    type: jsPsychFullscreen,
-    fullscreen_mode: true
-};
-
-timeline.push(enterFullScreenTrial);
 
 /**
  * Welcome
@@ -160,9 +156,6 @@ let resultsTrial = {
 
         console.log(results);
 
-        // Generate a participant ID based on the current timestamp
-        let participantId = getCurrentTimestamp();
-
         let fileName = prefix + '-' + participantId + '.csv';
 
         saveResults(fileName, results, dataPipeExperimentId, forceOSFSave).then(response => {
@@ -174,22 +167,15 @@ let resultsTrial = {
 }
 timeline.push(resultsTrial);
 
-
-
-let exitFullScreenTrial = {
-    type: jsPsychFullscreen,
-    fullscreen_mode: false
-};
-timeline.push(exitFullScreenTrial);
-
-
 /**
  * Debrief
  */
 let debriefTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
-    <h1>Thank you!</h1>
+    <h1>Thank you!
+    <a href='https://harvard.az1.qualtrics.com/jfe/form/SV_ekV0pVH9xqAoOb4?experimentParticipantId=${participantId}'>Please follow this link and complete the survey...</a>
+    </h1>
     `,
     choices: ['NO KEYS'],
     on_start: function () {

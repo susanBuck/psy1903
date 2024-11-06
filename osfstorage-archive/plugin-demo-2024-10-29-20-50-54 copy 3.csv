@@ -1,8 +1,0 @@
-"rt","stimulus","response","trial_type","trial_index","plugin_version","time_elapsed","device_id"
-"743","
-    <h1> Welcome to the Mirror-Camera Plugin Demo</h1> 
-    <p>In this experiment, you will be shown a mirror using your web camera.</p>
-    <p> Press <span class='key'>SPACE</span> to begin.</p>
-"," ","html-keyboard-response","0","2.0.0","745",""
-"","","","initialize-camera","1","2.0.0","2570","4cee19eafff3ca2804e2f52e4259d335578752510275088eaf078c4d1caf181f"
-"719.1000000238419","","","mirror-camera","2","2.0.0","3291",""
