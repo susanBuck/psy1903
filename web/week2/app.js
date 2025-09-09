@@ -34,4 +34,8 @@ console.log(typeof correct);
 
 console.log(10 <= 15); // true
 
+let answer1 = prompt('What is 1 + 1?');
+console.log(answer1);
 
+let answer2 = prompt('What is 9 + 1?');
+console.log(answer2);
