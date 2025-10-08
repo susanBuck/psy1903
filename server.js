@@ -34,8 +34,18 @@ findFreePort(3000, (err, freePort) => {
             const entries = fs.readdirSync(dir).filter(file => file !== '.DS_Store');
             entries.forEach(entry => {
                 const fullPath = path.join(dir, entry);
-                const stat = fs.statSync(fullPath);
-                if (stat && stat.isDirectory()) {
+                let stat;
+                try {
+                    stat = fs.lstatSync(fullPath);
+                } catch (e) {
+                    // Skip files that can’t be stat’ed
+                    return;
+                }
+                if (stat.isSymbolicLink()) {
+                    // Ignore symbolic links
+                    return;
+                }
+                if (stat.isDirectory()) {
                     results[entry] = readDirRecursive(fullPath);
                 } else {
                     results[entry] = null;
