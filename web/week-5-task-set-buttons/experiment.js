@@ -38,8 +38,6 @@ for (let condition of conditions) {
             data.num2 = condition.num2;
             data.correctAnswer = condition.correctAnswer;
             data.altAnswer = condition.altAnswer;
-
-            console.log(data.response);
             data.answer = choices[data.response];
 
             // Use the response index to see what choice they picked and if it matched the correct answer

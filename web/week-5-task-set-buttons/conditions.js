@@ -9,16 +9,10 @@ for (let i = 0; i < 3; i++) {
     // Generate a random alternative answer
     let altAnswer = getRandomNumber(1, 10) + getRandomNumber(1, 10);
 
-    // Option A to make sure correctAnswer and altAnswer don’   t match
+    // Make sure correctAnswer and altAnswer don’t match
     while (altAnswer == correctAnswer) {
         altAnswer = getRandomNumber(1, 10) + getRandomNumber(1, 10);
     }
-
-    // Option B to make sure correctAnswer and altAnswer don't match
-    // If they do match, just subtract some random number from the alternative answer and make sure it's positive
-    // if (altAnswer == correctAnswer) {
-    //     altAnswer = Math.abs(correctAnswer - getRandomNumber(1, 10));
-    // }
 
     conditions.push({
         num1: num1,
