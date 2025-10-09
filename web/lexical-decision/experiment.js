@@ -1,6 +1,20 @@
-let jsPsych = initJsPsych();
+let jsPsych = initJsPsych({
+    show_progress_bar: true
+});
 
 let timeline = [];
+
+
+// Retrieve the query string from the URL
+let queryString = new URLSearchParams(window.location.search);
+
+// Extract the value for qualtricsId from the query string
+let qualtricsId = queryString.get('qualtricsId');
+
+// Persist the value for qualtricsId to your experiment data
+jsPsych.data.addProperties({ qualtricsId: qualtricsId });
+
+
 
 // Welcome
 let welcomeTrial = {
@@ -14,6 +28,30 @@ let welcomeTrial = {
     choices: [' '],
 };
 timeline.push(welcomeTrial);
+
+
+let primeTrial = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+        <p>You were randomly chosen to see this trial.</p> 
+        <p>Press the <span class='key'>SPACE</span> key to continue.</p>
+        `,
+    choices: [' '],
+    data: {
+        collect: true,
+        trialType: 'prime',
+    },
+    on_load: function () {
+        if (getRandomNumber(0, 1) == 0) {
+            jsPsych.data.addProperties({ sawPrime: false });
+            jsPsych.finishTrial();
+        } else {
+            jsPsych.data.addProperties({ sawPrime: true });
+        }
+    }
+}
+timeline.push(primeTrial);
+
 
 // Conditions
 for (let block of conditions) {
@@ -40,6 +78,7 @@ for (let block of conditions) {
             stimulus: `<h1>${condition.characters}</h1>`,
             choices: ['f', 'j'],
             data: {
+                trialType: 'mainTrials',
                 collect: true,
                 characters: condition.characters,
                 blockId: block.title,
@@ -55,6 +94,22 @@ for (let block of conditions) {
             }
         }
         timeline.push(conditionTrial);
+
+
+        let feedbackTrial = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `<h1 class='incorrectFeedback'>Incorrect</h1>`,
+            trial_duration: 2000,
+            choices: ['NO KEY'],
+            on_load: function () {
+                let lastTrialData = jsPsych.data.getLastTrialData().values()[0];
+                if (lastTrialData.correct) {
+                    // Force skip this feedback trial if they got the previous trial correct
+                    jsPsych.finishTrial();
+                }
+            },
+        }
+        timeline.push(feedbackTrial);
     }
 }
 
@@ -71,7 +126,7 @@ let resultsTrial = {
         //  ⭐ Update the following three values as appropriate ⭐
         let prefix = 'lexical-decision';
         let dataPipeExperimentId = 'um0slxQiDwlS';
-        let forceOSFSave = true;
+        let forceOSFSave = false;
 
         // Filter and retrieve results as CSV data
         let results = jsPsych.data
@@ -79,6 +134,8 @@ let resultsTrial = {
             .filter({ collect: true })
             .ignore(['stimulus', 'trial_type', 'plugin_version', 'collect'])
             .csv();
+
+        console.log(results);
 
         // Generate a participant ID based on the current timestamp
         let participantId = new Date().toISOString().replace(/T/, '-').replace(/\..+/, '').replace(/:/g, '-');
@@ -111,13 +168,22 @@ let resultsTrial = {
 }
 timeline.push(resultsTrial);
 
+
 let debriefTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `<h1>Thank you!</h1>
     <p>You can now close this tab</p>`,
     choices: ['NO KEYS'],
+    on_start: function () {
+        jsPsych.progressBar.progress = 1;
+    }
 }
 
 timeline.push(debriefTrial);
 
 jsPsych.run(timeline);
+
+
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
